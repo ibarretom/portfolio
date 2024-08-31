@@ -8,7 +8,7 @@ import { defaultGhost } from "./models/Ghost";
 
 export function Home() {
   const ghost = useMemo(() => {
-    return defaultGhost
+    return defaultGhost;
   }, []);
 
   const { blocks, showBlock, hideBlock } = useBlock(ghost);
@@ -36,14 +36,16 @@ export function Home() {
   };
   return (
     <section className={`${defs.grid} ${defs["full-screen"]}`}>
-      <main className={`${styles.cta}`}>
+      <main
+        className={`${styles.cta}`}
+        style={
+          {
+            "--typewriterCharacters": cta.title.length,
+          } as React.CSSProperties
+        }
+      >
         <h1
           className={`${styles["cta__title"]} ${defs["font-huge"]} ${defs["font-cheltenham"]} ${defs["mb-2"]} ${defs["mt-0"]} ${styles["type-animation"]}`}
-          style={
-            {
-              "--typewriterCharacters": cta.title.length,
-            } as React.CSSProperties
-          }
         >
           {cta.title}
         </h1>

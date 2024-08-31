@@ -4,9 +4,6 @@
   grid-row-start: 2;
   grid-row-end: span 8;
 
-  display: flex;
-  flex-direction: column;
-
   margin-block: auto;
 }
 
@@ -25,32 +22,44 @@
 
   padding: 1rem 2rem;
   padding-inline-end: 1.5rem;
-  
-
-  cursor: pointer;
-  background-size: 300%;
-  opacity: 1;
-  transform: translateY(3rem);
-
-  transition: padding-inline-end 0.5s, margin 0.5s ease;
-  
-}
-
-.cta__activator:hover {
-  margin-top: -4px;
-  margin-left: -4px;
 
   background-image: linear-gradient(
     90deg,
     var(--cta-activator-start),
     var(--cta-activator-end)
   );
+  background-size: 300%;
 
   animation: animate__infinite-gradient 4s linear infinite,
-  fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+    fadeInUp 2s ease calc(var(--typewriterCharacters) * 0.08s) forwards;
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(3rem);
+
+  transition: padding-inline-end 0.5s, margin 0.5s ease;
+  isolation: isolate;
 }
 
-.cta__activator:before
+.cta__activator:hover {
+  margin-top: -4px;
+  margin-left: -4px;
+}
+
+.cta__activator:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    var(--cta-activator-start),
+    var(--cta-activator-end)
+  );
+  z-index: -2;
+  transition: margin 0.5s ease;
+}
+
 .cta__activator:hover .cta__icon {
   padding-inline-start: 0.5rem;
 }
@@ -120,57 +129,45 @@
   }
 }
 
-.type-animation {
-  animation: animate__typing 1s steps(10) forwards;
-}
-
 .cta__title {
   position: relative;
   width: fit-content;
+  display: inline;
 }
 
 .cta__subtitle {
   opacity: 0;
   transform: translateY(3rem);
-  animation: fadeInUp 1s ease calc(var(--typewriterSpeed) + 2s) forwards;
+  animation: fadeInUp 1s  ease calc(var(--typewriterCharacters) * 0.08s) forwards;
 }
 
-.cta__title::before,
-.cta__title::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.cta__title::before {
-  background: var(--black);
-  animation: typewriter var(--typewriterSpeed)
-    steps(var(--typewriterCharacters)) 1s forwards;
-}
-
-.cta__title::after {
-  width: 0.125em;
-  background: var(--white);
-  animation: typewriter var(--typewriterSpeed)
-      steps(var(--typewriterCharacters)) 1s forwards,
-    blink 750ms steps(var(--typewriterCharacters)) infinite;
-}
-
-@keyframes typewriter {
-  to {
-    left: 100%;
-  }
-}
-
-@keyframes blink {
-  to {
-    background: transparent;
-  }
+.type-animation {
+  color: #0000;
+  background: linear-gradient(-90deg, var(--white) 5px, #0000 0) 10px 0,
+    linear-gradient(var(--white) 0 0) 0 0;
+  background-size: calc(var(--typewriterCharacters) * 1ch) 200%;
+  -webkit-background-clip: padding-box, text;
+  background-clip: padding-box, text;
+  background-repeat: no-repeat;
+  animation: bgAnimation2 0.7s infinite steps(1),
+    bgAnimation1 calc(var(--typewriterCharacters) * 0.1s) steps(var(--typewriterCharacters)) forwards;
 }
 
 @keyframes fadeInUp {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes bgAnimation1 {
+  from {
+    background-size: 0 200%;
+  }
+}
+
+@keyframes bgAnimation2 {
+  50% {
+    background-position: 0 -100%, 0 0;
   }
 }
