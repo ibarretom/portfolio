@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(1.25rem, 1fr));
+  grid-template-rows: repeat(3, minmax(1.25rem, 1fr));
+}
+
+.inner-block {
+  background-color: var(--white);
+}

@@ -1,0 +1,125 @@
+@font-face {
+  font-family: "NYTCheltenham";
+  src: url("./assets/fonts/cheltenham/cheltenham-wide-normal-400.ttf")
+    format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Imperial";
+  src: url("./assets/fonts/imperial/imperial-italic-500.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Imperial";
+  src: url("./assets/fonts/imperial/imperial-italic-700.ttf") format("truetype");
+  font-weight: 700;
+}
+
+:root {
+  --black: rgba(12, 12, 12, 100);
+  --light-grey: rgba(43, 43, 43, 0.6);
+  --blue: rgba(33, 147, 176, 100);
+  --dark-red: rgba(28, 0, 5, 100);
+  --white: rgba(255, 255, 255, 100);
+  --light-white: rgba(255, 255, 255, 0.6);
+  --dark-text: rgba(3, 13, 17, 100);
+  --light-text: rgba(255, 255, 255, 0.7);
+  --font-size: 16px;
+
+  --cta-activator-start: #2193b0;
+  --cta-activator-end: #6dd5ed;
+
+  --figure-animation-float-duration: 750ms;
+  --block-shown-duration: 500ms;
+  --typewriterSpeed: 6s;
+  
+  font-family: Imperial, monospace, Avenir, Helvetica, Arial, sans-serif;
+
+  /* color-scheme: light dark; */
+  color: var(--white);
+  background-color: var(--black);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  border-collapse: collapse;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.font-cheltenham {
+  font-family: NYTCheltenham, serif;
+}
+
+.font-imperial {
+  font-family: Imperial, serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(80px, 1fr));
+  grid-template-rows: repeat(10, minmax(80px, 1fr));
+}
+
+.full-screen {
+  min-height: 100svh;
+}
+
+.font-huge {
+  font-size: 4rem;
+}
+
+.font-large {
+  font-size: 2rem;
+}
+
+.font-medium {
+  font-size: 1.5rem;
+}
+
+.font-normal {
+  font-size: 1rem;
+}
+
+.light-text {
+  color: var(--light-text);
+}
+
+.dark-text {
+  color: var(--dark-text);
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,176 @@
+.cta {
+  grid-column-start: 2;
+  grid-column-end: span 4;
+  grid-row-start: 2;
+  grid-row-end: span 8;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-block: auto;
+}
+
+.cta__activator {
+  position: relative;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  width: fit-content;
+  background-color: var(--white);
+
+  color: var(--dark-text);
+  font-weight: 700;
+
+  padding: 1rem 2rem;
+  padding-inline-end: 1.5rem;
+  
+
+  cursor: pointer;
+  background-size: 300%;
+  opacity: 1;
+  transform: translateY(3rem);
+
+  transition: padding-inline-end 0.5s, margin 0.5s ease;
+  
+}
+
+.cta__activator:hover {
+  margin-top: -4px;
+  margin-left: -4px;
+
+  background-image: linear-gradient(
+    90deg,
+    var(--cta-activator-start),
+    var(--cta-activator-end)
+  );
+
+  animation: animate__infinite-gradient 4s linear infinite,
+  fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+}
+
+.cta__activator:before
+.cta__activator:hover .cta__icon {
+  padding-inline-start: 0.5rem;
+}
+
+.cta__icon {
+  height: 12px;
+
+  transition: padding-inline-start 0.5s;
+}
+
+@keyframes animate__infinite-gradient {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.block {
+  grid-column-start: var(--grid-column-start);
+  grid-row-start: var(--grid-row-start);
+}
+
+.block:not(.block__element__square) + .block {
+  border: 1px solid var(--light-grey);
+}
+
+.block__element {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(13, 1fr);
+
+  transform: scaleY(0);
+  transition: transform var(--block-shown-duration) ease;
+  transform-origin: bottom;
+  background-color: var(--blue);
+
+  height: 100%;
+}
+
+.block__element__visible {
+  transform: scaleY(1);
+  transform-origin: bottom;
+}
+
+.block__element__square {
+  background-color: var(--white);
+}
+
+.float-animation {
+  animation: animate__float var(--figure-animation-float-duration) ease infinite;
+}
+
+@keyframes animate__float {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(-5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.type-animation {
+  animation: animate__typing 1s steps(10) forwards;
+}
+
+.cta__title {
+  position: relative;
+  width: fit-content;
+}
+
+.cta__subtitle {
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: fadeInUp 1s ease calc(var(--typewriterSpeed) + 2s) forwards;
+}
+
+.cta__title::before,
+.cta__title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cta__title::before {
+  background: var(--black);
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+.cta__title::after {
+  width: 0.125em;
+  background: var(--white);
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharacters)) 1s forwards,
+    blink 750ms steps(var(--typewriterCharacters)) infinite;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
