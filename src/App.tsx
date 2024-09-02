@@ -6,6 +6,7 @@ function App() {
   const { initialize } = useAnalytics();
 
   initialize();
+
   return <Home />;
 }
 

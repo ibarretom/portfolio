@@ -1,10 +1,8 @@
 import styles from "./styles.module.css";
 import defs from "../../index.module.css";
 import { useEffect, useMemo } from "react";
-import { useBlock } from "./hooks/useBlock";
 
 import { SideGrid } from "./sideGrid";
-import { defaultGhost } from "./models/Ghost";
 import {
   ClickAbout,
   PageView,
@@ -12,43 +10,20 @@ import {
 } from "../../hooks/GoogleAnalytics";
 
 export function Home() {
-  const ghost = useMemo(() => {
-    return defaultGhost;
-  }, []);
-
-  const { blocks, showBlock, hideBlock } = useBlock(ghost);
-
-  useEffect(() => {
-    let random: number | undefined;
-    const interval = setTimeout(() => {
-      random = showBlock();
-    }, 500);
-
-    return () => {
-      clearTimeout(interval);
-      if (random === undefined) return;
-
-      setTimeout(() => {
-        hideBlock(random as number);
-      }, 2500);
-
-      return;
-    };
-  }, [showBlock, hideBlock]);
-
   const cta = {
     title: "Writing code, building ideas",
   };
 
   const { customEvent, pageView } = useAnalytics();
+  const page = useMemo(() => new PageView("pageview", "/", "Home"), []);
 
   useEffect(() => {
-    pageView(new PageView("pageview", "/", "Home"));
-  }, [pageView]);
+    pageView(page);
+  }, [page, pageView]);
+
   const handleAboutClick = () => {
     customEvent(new ClickAbout());
   };
-
   return (
     <section className={`${defs.grid} ${defs["full-screen"]}`}>
       <main
@@ -85,7 +60,7 @@ export function Home() {
           </svg>
         </a>
       </main>
-      <SideGrid blocks={blocks} />
+      <SideGrid />
     </section>
   );
 }

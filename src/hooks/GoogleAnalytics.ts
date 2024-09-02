@@ -1,25 +1,35 @@
+import { useCallback, useMemo } from "react";
 import ReactGA from "react-ga4";
 
 export function useAnalytics() {
-  const isDev = process.env.NODE_ENV === "development";
-  const id = process.env.REACT_APP_GA as string | undefined;
+  const isDev = useMemo(() => process?.env.NODE_ENV === "development", []);
+  const id = useMemo(() => process?.env.REACT_APP_GA as string | undefined, []);
 
-  function safeTrigger<T extends Event>(GaEvent: (obj: T) => void, param: T) {
-    debugger;
-    if (id && !isDev) {
-      GaEvent(param);
-    }
+  const safeTrigger = useCallback(
+    function safeTrigger<T extends Event>(GaEvent: (obj: T) => void, param: T) {
+      console.log("rendering", param);
+      if (id && !isDev) {
+        GaEvent(param);
+      }
 
-    return;
-  }
+      return;
+    },
+    [id, isDev]
+  );
 
-  const pageView = (obj: PageView) => {
-    safeTrigger(ReactGA.send, obj);
-  };
+  const pageView = useCallback(
+    (obj: PageView) => {
+      safeTrigger(ReactGA.send, obj);
+    },
+    [safeTrigger]
+  );
 
-  const sendCustomEvent = (obj: CustomEvent) => {
-    safeTrigger(ReactGA.send, obj);
-  };
+  const sendCustomEvent = useCallback(
+    (obj: CustomEvent) => {
+      safeTrigger(ReactGA.event, obj);
+    },
+    [safeTrigger]
+  );
 
   return {
     initialize: () => {
@@ -27,8 +37,14 @@ export function useAnalytics() {
         ReactGA.initialize(id);
       }
     },
-    pageView: (obj: PageView) => safeTrigger(pageView, obj),
-    customEvent: (obj: CustomEvent) => safeTrigger(sendCustomEvent, obj),
+    pageView: useCallback(
+      (obj: PageView) => safeTrigger(pageView, obj),
+      [safeTrigger, pageView]
+    ),
+    customEvent: useCallback(
+      (obj: CustomEvent) => safeTrigger(sendCustomEvent, obj),
+      [safeTrigger, sendCustomEvent]
+    ),
   };
 }
 
