@@ -2,8 +2,8 @@ import { useCallback, useMemo } from "react";
 import ReactGA from "react-ga4";
 
 export function useAnalytics() {
-  const isDev = useMemo(() => process?.env.NODE_ENV === "development", []);
-  const id = useMemo(() => process?.env.REACT_APP_GA as string | undefined, []);
+  const isDev = useMemo(() => import.meta.env.NODE_ENV === "development", []);
+  const id = useMemo(() => import.meta.env.REACT_APP_GA as string | undefined, []);
 
   const safeTrigger = useCallback(
     function safeTrigger<T extends Event>(GaEvent: (obj: T) => void, param: T) {
