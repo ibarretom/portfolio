@@ -5,6 +5,11 @@ import { useBlock } from "./hooks/useBlock";
 
 import { SideGrid } from "./sideGrid";
 import { defaultGhost } from "./models/Ghost";
+import {
+  ClickAbout,
+  PageView,
+  useAnalytics,
+} from "../../hooks/GoogleAnalytics";
 
 export function Home() {
   const ghost = useMemo(() => {
@@ -34,6 +39,16 @@ export function Home() {
   const cta = {
     title: "Writing code, building ideas",
   };
+
+  const { customEvent, pageView } = useAnalytics();
+
+  useEffect(() => {
+    pageView(new PageView("pageview", "/", "Home"));
+  }, [pageView]);
+  const handleAboutClick = () => {
+    customEvent(new ClickAbout());
+  };
+
   return (
     <section className={`${defs.grid} ${defs["full-screen"]}`}>
       <main
@@ -56,6 +71,7 @@ export function Home() {
         </p>
         <a
           className={`${defs["font-medium"]} ${defs["dark-text"]} ${styles["cta__activator"]}`}
+          onClick={handleAboutClick}
         >
           Who is Igor Meirelles
           <svg
