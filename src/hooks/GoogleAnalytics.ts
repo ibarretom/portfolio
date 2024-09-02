@@ -3,11 +3,15 @@ import ReactGA from "react-ga4";
 
 export function useAnalytics() {
   const isDev = useMemo(() => import.meta.env.NODE_ENV === "development", []);
-  const id = useMemo(() => import.meta.env.REACT_APP_GA as string | undefined, []);
+  const id = useMemo(
+    () => import.meta.env.REACT_APP_GA as string | undefined,
+    []
+  );
 
   const safeTrigger = useCallback(
     function safeTrigger<T extends Event>(GaEvent: (obj: T) => void, param: T) {
       if (id && !isDev) {
+        console.log(console.log(id, isDev, param, GaEvent));
         GaEvent(param);
       }
 
