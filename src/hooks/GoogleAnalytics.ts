@@ -7,7 +7,6 @@ export function useAnalytics() {
 
   const safeTrigger = useCallback(
     function safeTrigger<T extends Event>(GaEvent: (obj: T) => void, param: T) {
-      console.log("rendering", param);
       if (id && !isDev) {
         GaEvent(param);
       }
